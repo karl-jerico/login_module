@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('roles', RoleController::class);
+Route::get('/roles/{id}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

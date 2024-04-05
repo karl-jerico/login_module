@@ -38,12 +38,18 @@
                                         <input type="email" name="email" value="{{ $user->email }}" placeholder="Enter Email" class="bg-transparent border rounded-xl focus:ring-0 focus:border-transparent focus:outline-none w-full">
                                     </td>
                                     <td class="px-6 py-4">
-                                        Test
+                                        <select id="roles" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option selected disabled>Choose a role</option>
+                                            @foreach($roles as $role)
+                                                <option value="{{ $role->name }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>{{ $role->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </td>
                                     <td class="px-6 py-4">
                                         <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Save</button>
                                     </td>
                                 </form>
+                                
                             </tr>
                         </tbody>
                         

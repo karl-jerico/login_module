@@ -28,28 +28,35 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($users as $user)
-                            <tr class="bg-white dark:bg-gray-800">
-                                <th scope="row"
-                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ $user->name }}
-                                </th>
-                                <td class="px-6 py-4">
-                                    {{ $user->email }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    <!-- Assuming you want to display 'Accessories' for all users -->
-                                    Testt
-                                </td>
-                                <td class="flex gap-4 px-6 py-4">
-                                    <a href="{{ route('roles.edit', $user->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                    <form action="{{ route('roles.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="font-medium text-red-600 dark:text-blue-500 hover:underline">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
+                            @foreach ($users as $user)
+                                <tr class="bg-white dark:bg-gray-800">
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $user->name }}
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{ $user->email }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        @foreach ($user->roles as $role)
+                                            <span
+                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                {{ $role->name }}
+                                            </span>
+                                        @endforeach
+                                    </td>
+                                    <td class="flex gap-4 px-6 py-4">
+                                        <a href="{{ route('roles.edit', $user->id) }}"
+                                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                        <form action="{{ route('roles.destroy', $user->id) }}" method="POST"
+                                            onsubmit="return confirm('Are you sure you want to delete this user?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="font-medium text-red-600 dark:text-blue-500 hover:underline">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

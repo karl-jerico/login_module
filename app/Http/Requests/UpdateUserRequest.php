@@ -11,7 +11,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return true; // Change this according to your authorization logic
+        return $this->user()->can('update');
     }
 
     /**
@@ -19,10 +19,11 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules()
     {
-
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|email',
+            'role' => 'required|exists:roles,name',
         ];
     }
 }
+

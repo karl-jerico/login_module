@@ -11,8 +11,11 @@ class RoleFormRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true; // Change to true to authorize the request
+        return $this->user()->hasRole('superadmin')
+            ? true
+            : $this->user()->hasRole('admin') && ($this->role === 'admin' || $this->role === 'user');
     }
+
 
     /**
      * Get the validation rules that apply to the request.
@@ -25,6 +28,7 @@ class RoleFormRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
+            'role' => 'required|exists:roles,name',
         ];
     }
 }

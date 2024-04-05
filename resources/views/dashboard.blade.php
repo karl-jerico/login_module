@@ -11,8 +11,14 @@
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
                 </div>
-                <a href="{{ route('roles.index') }}"
-                class=" float-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  focus:outline-none ">User Management</a>
+                @php
+                $userRole = auth()->user()->roles->pluck('name')->first();
+                @endphp
+                
+                @if($userRole != 'user')
+                    <a href="{{ route('roles.index') }}"
+                        class="float-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">User Management</a>
+                @endif
             </div>
         </div>
     </div>
